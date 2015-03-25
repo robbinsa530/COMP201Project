@@ -4,7 +4,8 @@ using namespace std;
 
 // Initialize SDL
 View::View(string title, int width, int height) {
-    fail = false;
+   
+   fail = false;
     SDL_SetMainReady();
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
         fail = true;
@@ -41,7 +42,20 @@ View::View(string title, int width, int height) {
 //    }
 //    food = Mix_LoadWAV("assets/yummy.wav");
     font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
-
+	
+	//load road picture
+	road = load("assets/road.png"); 
+    if (road == NULL) {
+        return;
+    }
+	car = load("assets/car.png"); 
+    if (car == NULL) {
+        return;
+    }
+	cage = load("assets/cage.png"); 
+    if (cage == NULL) {
+        return;
+    }
 }
 
 View::~View() {
@@ -71,9 +85,15 @@ SDL_Surface* View::load(char * path) {
 
 void View::show(Model * model) {
 
-    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
-        0x00, 0x00, 0x00));
-
+	//not needed i guess?
+	/*SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));*/
+	
+	SDL_BlitSurface( road, &(model->source_road_1), screen, &(model->destination_road_1) );
+	SDL_BlitSurface( road, &(model->source_road_2), screen, &(model->destination_road_2) );
+	SDL_BlitSurface( car, NULL, screen, &(model->destination_car) );
+	SDL_BlitSurface( cage, &(model->source_obstacle), screen, &(model->destination_obstacle) );
+	
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
 
     SDL_UpdateWindowSurface(window);
