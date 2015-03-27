@@ -48,10 +48,14 @@ View::View(string title, int width, int height) {
     if (road == NULL) {
         return;
     }
-	car = load("assets/car.png"); 
+	car = load("assets/car2.png"); 
     if (car == NULL) {
         return;
     }
+	
+	//experimental transparency code (IT WORKED! :D)
+	SDL_SetColorKey( car, SDL_TRUE, SDL_MapRGB( car->format, 255, 255, 255 ) );
+	
 	cage = load("assets/cage.png"); 
     if (cage == NULL) {
         return;
