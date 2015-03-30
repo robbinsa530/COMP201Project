@@ -19,16 +19,22 @@ https://wiki.libsdl.org/SDL_Event
 */
 void Controller::loop() {
     SDL_Event e;
-    unsigned int lastTime = 0, currentTime = 0;
+    unsigned int lastTime = 0, currentTime;
     std::map<SDL_Keycode, Direction> direction;
     //direction[SDLK_UP] = UP;
     //direction[SDLK_DOWN] = DOWN;
     direction[SDLK_LEFT] = LEFT;
     direction[SDLK_RIGHT] = RIGHT;
+	
+	/**float frameTime = 0;
+    float deltaTime = 0;
+    const int fps = 60;*/
 
-    while(!model->gameOver()) {
-		///lastTime = currentTime;
-		///currentTime = SDL_GetTicks();
+	while(!model->gameOver()) {
+		/**lastTime = currentTime;
+        currentTime = SDL_GetTicks();
+        deltaTime = (currentTime - lastTime);*/
+		
         // Do stuff here to animate as necessary
 		view->show(model);
         if (SDL_PollEvent(&e) != 0) {
@@ -55,11 +61,11 @@ void Controller::loop() {
 			model->direction = STAGNANT;
 			model->calculate();
 		}
-		///currentTime = SDL_GetTicks();
-		///SDL_Delay((25.0/3.0) - (currentTime - lastTime));
-		///lastTime = currentTime;
+		/**if(deltaTime < (1000 / fps)) {
+            SDL_Delay((1000 / fps) - deltaTime);
+        }*/
     }
     // TODO: show something nice?
     view->show(model);
-    SDL_Delay(3000);
+    SDL_Delay(500);
 }

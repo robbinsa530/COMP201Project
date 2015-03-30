@@ -56,7 +56,7 @@ View::View(string title, int width, int height) {
 	//experimental transparency code (IT WORKED! :D)
 	SDL_SetColorKey( car, SDL_TRUE, SDL_MapRGB( car->format, 255, 255, 255 ) );
 	
-	cage = load("assets/cage.png"); 
+	cage = load("assets/cage2.png"); 
     if (cage == NULL) {
         return;
     }

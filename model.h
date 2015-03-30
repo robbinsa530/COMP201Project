@@ -22,6 +22,8 @@ public:
 	void go(Direction d);
 	//update locations of images
 	void calculate();
+	//how many pixels will the objects redraw at a time
+	int p; ///using a short name because it comes up so much and im lazy
 
 	//SDL location variables for images
 	SDL_Rect source_road_1, source_road_2, source_obstacle;
