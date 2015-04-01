@@ -24,14 +24,10 @@ Model::Model() {
 	destination_car.y = 530;
 	destination_car.x = 490;
 	
-	source_obstacle.x = 0;
-	source_obstacle.y = 100;
-	source_obstacle.w = 80;
-	source_obstacle.h = 1;
-	destination_obstacle.y = 0;
-	destination_obstacle.x = 490;
+	p = 2;
 	
-	p = 1;
+	//at start of game, game is NOT over
+	game_over = false;
 }
 // Destructor deletes dynamically allocated memory
 Model::~Model() {
@@ -39,9 +35,11 @@ Model::~Model() {
 }
 
 bool Model::gameOver() {
-	//collision detection
-	return (((destination_obstacle.y + destination_obstacle.h) >= 530 && (destination_obstacle.y + destination_obstacle.h) <= 720) &&
-			!(destination_car.x + 121 < destination_obstacle.x || destination_car.x > destination_obstacle.x + destination_obstacle.w));	
+	//collision detection  						Doesnt work half the time when hitting obstacle from the right side. FIX***********
+	for (std::list<Debris>::iterator it = obstacles.begin(); it != obstacles.end(); it++) {
+		game_over = (((it->dest.y + it->source.h) >= 530) && !(destination_car.x + 121 < it->dest.x || destination_car.x > it->dest.x + it->source.w));
+	}
+	return game_over;
 }
 
 void Model::go(Direction d)
@@ -71,22 +69,38 @@ void Model::calculate()
 	//updates car position
 	switch(direction)
 	{
-		case LEFT: destination_car.x = destination_car.x - 10;
+		case LEFT: destination_car.x = destination_car.x - 4;
 		break;
-		case RIGHT: destination_car.x = destination_car.x + 10;
+		case RIGHT: destination_car.x = destination_car.x + 4;
 		break;
 		case STAGNANT:
 		break;
 	}
 	
-	//update obstacle position
-	destination_obstacle.y = destination_obstacle.y + p;
-	if (source_obstacle.y > 0) {
-		source_obstacle.y = source_obstacle.y - p;
-		source_obstacle.h = source_obstacle.h + p;
-		destination_obstacle.y = destination_obstacle.y - p;
+	//update obstacle positions
+	for (std::list<Debris>::iterator it = obstacles.begin(); it != obstacles.end(); it++) {
+		it->dest.y = it->dest.y + p;	
+			if (it->source.y > 0) {
+				it->source.y = it->source.y - p;
+				it->source.h = it->source.h + p;
+				it->dest.y = it->dest.y - p;
+		}
+		//check if image is off screen. if so, pop that ish outa hurr
+		if (it->dest.y > 720) {
+			//just do pop_front instead of getting rid of the specific debris because the only obstacle which will be this far down at any 
+			//given time is the first element (oldest one)
+			obstacles.pop_front();
+		}
 	}
-	
 	return;
+}
+
+Debris::Debris() {
+	source.x = 0;
+	source.y = 120;
+	source.w = 100;
+	source.h = 1;
+	dest.y = 0;
+	//dest.x is set randomly in controller
 }
 

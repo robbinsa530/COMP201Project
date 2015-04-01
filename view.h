@@ -17,19 +17,18 @@ public:
     ~View();
     // Print out the visible stuff in the grid
     void show(Model * model);
+	//obstacles
+	SDL_Surface* obst[3];
 
 private:
     SDL_Window* window;
     SDL_Surface* screen;
-    bool fail;
-    SDL_Surface* load(char * path);
-	//object road
+	//object road and car
 	SDL_Surface* road;
-	//object car
 	SDL_Surface* car;
-	//obstacle 1
-	SDL_Surface* cage;
-	
+    bool fail;
+	//load images
+	SDL_Surface* load(char * path);
 //    SDL_Surface* text;
 //    Mix_Music * music;
 //    Mix_Chunk * food;

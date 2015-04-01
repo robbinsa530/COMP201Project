@@ -48,18 +48,24 @@ View::View(string title, int width, int height) {
     if (road == NULL) {
         return;
     }
+	//load car picture
 	car = load("assets/car2.png"); 
     if (car == NULL) {
         return;
     }
-	
-	//experimental transparency code (IT WORKED! :D)
+	//make background of car transparent
 	SDL_SetColorKey( car, SDL_TRUE, SDL_MapRGB( car->format, 255, 255, 255 ) );
 	
-	cage = load("assets/cage2.png"); 
-    if (cage == NULL) {
-        return;
-    }
+	//load obstacles
+	char paths[] = "assets/cage1.png";
+	for (int i = 0; i < 3; i++) {
+		obst[i] = load(paths);
+		paths[11]++;
+		if (obst[i] == NULL) {return;}
+		//make background of obstacles transparent
+		SDL_SetColorKey( obst[i], SDL_TRUE, SDL_MapRGB( obst[i]->format, 255, 255, 255 ) );
+	}
+
 }
 
 View::~View() {
@@ -92,11 +98,14 @@ void View::show(Model * model) {
 	//not needed i guess?
 	/*SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));*/
-	
+
 	SDL_BlitSurface( road, &(model->source_road_1), screen, &(model->destination_road_1) );
 	SDL_BlitSurface( road, &(model->source_road_2), screen, &(model->destination_road_2) );
 	SDL_BlitSurface( car, NULL, screen, &(model->destination_car) );
-	SDL_BlitSurface( cage, &(model->source_obstacle), screen, &(model->destination_obstacle) );
+	
+	for (std::list<Debris>::iterator it = (model->obstacles).begin(); it != (model->obstacles).end(); it++) {
+		SDL_BlitSurface( it->debris_image, &(it->source), screen, &(it->dest) );
+	}
 	
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
 
