@@ -69,9 +69,9 @@ void Model::calculate()
 	//updates car position
 	switch(direction)
 	{
-		case LEFT: destination_car.x = destination_car.x - 4;
+		case LEFT: destination_car.x = destination_car.x - 2;
 		break;
-		case RIGHT: destination_car.x = destination_car.x + 4;
+		case RIGHT: destination_car.x = destination_car.x + 2;
 		break;
 		case STAGNANT:
 		break;

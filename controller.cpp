@@ -59,12 +59,7 @@ void Controller::loop() {
                 }	
 				break;
             case SDL_KEYUP:
-				switch(e.key.keysym.sym) {
-					case SDLK_LEFT:
-					case SDLK_RIGHT:
-						keyDown = false;
-						break;
-				}
+				keyDown = false;
 				break;
 			case SDL_MOUSEBUTTONDOWN:
                 break;

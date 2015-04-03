@@ -57,10 +57,10 @@ View::View(string title, int width, int height) {
 	SDL_SetColorKey( car, SDL_TRUE, SDL_MapRGB( car->format, 255, 255, 255 ) );
 	
 	//load obstacles
-	char paths[] = "assets/cage1.png";
+	char paths[] = "assets/1.png";
 	for (int i = 0; i < 3; i++) {
 		obst[i] = load(paths);
-		paths[11]++;
+		paths[7]++;
 		if (obst[i] == NULL) {return;}
 		//make background of obstacles transparent
 		SDL_SetColorKey( obst[i], SDL_TRUE, SDL_MapRGB( obst[i]->format, 255, 255, 255 ) );
