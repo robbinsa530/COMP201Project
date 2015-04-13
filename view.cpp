@@ -115,7 +115,7 @@ string View::to_string(int x)
 	return os.str() ;
 }
 
-void View::show(Model * model) {
+void View::show(Model * model) { ///ADD ALL OF RYANS SHIT TO THE VIEW IN HURR
 
 	//not needed i guess?
 	/*SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
@@ -130,10 +130,14 @@ void View::show(Model * model) {
 	}
 	
 	textScore = "Points: " + to_string(model->score);
-	if(SDL_GetTicks() > 5000)
-		model->message = "YOU'VE SURVIVED THIS FAR, READY TO SPEED THINGS UP?";
-	if(SDL_GetTicks() > 10000)
-		model->message = "YOU'LL NEVER MAKE IT.";
+	if(SDL_GetTicks() > 25000)
+		model->message = "        YOU'VE SURVIVED THIS FAR, READY TO SPEED THINGS UP?";
+	if(SDL_GetTicks() > 30000)
+		model->message = "";
+	if(SDL_GetTicks() > 55000)
+		model->message = "                       NOT BAD, BUT CAN YOU HANDLE 3X SPEED";
+	if(SDL_GetTicks() > 60000)
+		model->message = "";
 
 	scoreCounter = TTF_RenderText_Solid( font, textScore.c_str(), textColor );
 	scoreCounterShadow = TTF_RenderText_Solid( font, textScore.c_str(), shadowColor );

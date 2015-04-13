@@ -76,13 +76,13 @@ void Model::calculate(/*Model * model*/)
 	}
 	
 
-	if(currentTime > 5000 && source_road_2.y == 720)
+	if(currentTime > 30000 && source_road_2.y == 720)
 	{
 		MULTIPLIER = 2;
 		OFFSET = 3;
 	}
 	
-	if(currentTime > 10000 && source_road_2.y == 720)
+	if(currentTime > 60000 && source_road_2.y == 720)
 	{
 		MULTIPLIER = 3;
 		OFFSET = 4;
